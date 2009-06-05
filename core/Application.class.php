@@ -15,6 +15,7 @@ class Application
         if(isset($_GET['page'])){
             $req = $_GET['page'];
             $req = explode("/",$req);
+            
             if(count($req) == 1){
                 self::getRequest($req[0]);
             }else if(count($req) == 2){

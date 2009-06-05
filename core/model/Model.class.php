@@ -53,7 +53,6 @@ abstract class Model
         $dbstring = $config['db']['connectionString'];
         $dbuser = $config['db']['dbuser'];
         $dbpass = $config['db']['dbpass'];
-        //var_dump($config);
         $this->db = new PDO($dbstring, $dbuser, $dbpass);
     }
     abstract public function setup();
@@ -114,6 +113,10 @@ abstract class Model
         
     }
     public function count()
+    {
+        
+    }
+    public function first()
     {
         
     }
@@ -179,6 +182,12 @@ abstract class Model
             $objects[] = $object;
         }
         return $objects;
+    }
+    
+    public function query($query, $params = array())
+    {
+        $statement = $this->db->prepare($query);
+        $statement->execute($params);
     }
     
     public static function model($className = __CLASS__)
