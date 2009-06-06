@@ -4,16 +4,16 @@ class Karyawan extends Model
     public function setup()
     {
         $this->attributes = array(
-            'nik'               =>  null,
-            'namaLengkap'       =>  null,
-            'tempatLahir'       =>  null,
-            'tanggalLahir'      =>  null,
-            'golongan'          =>  null,
-            'gajiPokok'         =>  null,
-            'tunjanganJabatan'  =>  null,
-            'tunjanganKeluarga' =>  null,
-            'tunjanganLain'     =>  null,
-            'transportPerHari'  =>  null,
+            'nik'                =>  null,
+            'nama_lengkap'       =>  null,
+            'tempat_lahir'       =>  null,
+            'tanggal_lahir'     =>  null,
+            'golongan'           =>  null,
+            'gaji_pokok'         =>  null,
+            'tunjangan_jabatan'  =>  null,
+            'tunjangan_keluarga' =>  null,
+            'tunjangan_lain'     =>  null,
+            'transport_per_hari' =>  null,
         );
         $this->relations = array(
             'listPresensi'  => array (
@@ -33,8 +33,9 @@ class Karyawan extends Model
             )
         );
     }
-    public static function m()
+    public static function m($className = __CLASS__)
     {
-        return parent::model(__CLASS__);
+        
+        return parent::model($className);
     }
 }

@@ -7,12 +7,12 @@ class Gaji extends Model
             'karyawan_id'       =>  null,
             'periode_id'        =>  null,
             'gajiPokok'         =>  null,
-            'tunjanganJabatan'  =>  null,
-            'tunjanganKeluarga' =>  null,
-            'tunjanganLain'     =>  null,
-            'uangLembur'        =>  null,
-            'uangTranport'      =>  null,
-            'uangMakan'         =>  null,
+            'tunjangan_jabatan'  =>  null,
+            'tunjangan_keluarga' =>  null,
+            'tunjangan_lain'     =>  null,
+            'uang_lembur'        =>  null,
+            'uang_tranport'      =>  null,
+            'uang_makan'         =>  null,
             'bonus'             =>  null,
             'potongan'          =>  null
         );

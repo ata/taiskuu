@@ -5,7 +5,7 @@ class JamLembur extends Model
     {
         $this->attributes = array(
             'hari'              =>  null,
-            'jumlahJam'         =>  null,
+            'jumlah_jam'         =>  null,
             'karyawan_id'       =>  null,
             'periode_id'        =>  null,
             'tanggal'           =>  null

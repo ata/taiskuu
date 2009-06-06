@@ -190,13 +190,12 @@ abstract class Model
         $statement->execute($params);
     }
     
-    public static function model($className = __CLASS__)
+    public static function model($className)
     {
         if(isset(self::$models[$className])) {
             return self::$models[$className];
         } else {
-            $model = new $className();
-            self::$models[$className] = $model;
+            $model = self::$models[$className] =  new $className();
             return $model;
         }
     }

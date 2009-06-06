@@ -2,8 +2,10 @@
 class Html{
     public static function url($url,$params = null)
     {
-        
-        return $_SERVER['SCRIPT_NAME'] .'?page='. $url;
+        return $_SERVER['SCRIPT_NAME'] .'?c='. $url;
+        if(is_array($params) && $params != null) {
+            
+        }
     }
     public static function redirect($url)
     {
@@ -13,6 +15,6 @@ class Html{
     {
         $scriptname =  $_SERVER['SCRIPT_NAME'];
         $path = str_replace(basename($scriptname), '', $scriptname);
-        return $path . $url;
+        return $path . 'media/'. $url;
     }
 }

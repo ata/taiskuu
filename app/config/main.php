@@ -1,7 +1,7 @@
 <?php 
 
 return array(
-    'defaultController' => 'post',
+    'defaultController' => 'karyawan',
     
     'db' => array(
         'connectionString'  =>  'mysql:host=localhost;dbname=sia_payroll',

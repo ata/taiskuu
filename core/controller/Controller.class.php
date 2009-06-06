@@ -3,12 +3,16 @@ require_once ('./core/controller/AbstractController.class.php');
 require_once ('./core/view/View.class.php');
 require_once ('./core/view/helpers/Html.class.php');
 require_once ('./core/model/Model.class.php');
+require_once ('./core/component/Session.class.php');
+require_once ('./core/component/Form.class.php');
 
 class Controller extends AbstractController
 {
     protected $name = null;
     protected $view = null;
     protected $models = null;
+    protected $session = null;
+    protected $params = null;
     
     public function __construct()
     {
@@ -65,6 +69,10 @@ class Controller extends AbstractController
     public function setView($view)
     {
         $this->view = $view;
+    }
+    public function setParams($params)
+    {
+        $this->params = $params;
     }
 
 }

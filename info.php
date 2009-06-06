@@ -1,4 +1,4 @@
 <?php 
 
-echo basename(__FILE__);
+echo __DIR__;
 phpinfo();
