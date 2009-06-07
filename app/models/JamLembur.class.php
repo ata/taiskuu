@@ -3,13 +3,7 @@ class JamLembur extends Model
 {
     public function setup()
     {
-        $this->attributes = array(
-            'hari'              =>  null,
-            'jumlah_jam'         =>  null,
-            'karyawan_id'       =>  null,
-            'periode_id'        =>  null,
-            'tanggal'           =>  null
-        );
+        
         $this->relations = array(
             'karyawan'  => array (
                 'model'         =>  'Karyawan',

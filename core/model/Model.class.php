@@ -5,10 +5,11 @@ abstract class Model
     const HAS_MANY      =   'has_many';
     const HAS_ONE       =   'has_one';
     const BELONGS_TO    =   'belongs_to';
-    private $db; // PDO object
-    private $tableName; // Nama table, jika tidak di deklarasikan, isikan dengan nama class
-    public $id;
+    protected $db; // PDO object
+    protected $tableName; // Nama table, jika tidak di deklarasikan, isikan dengan nama class
+    public $id = null;
     public $attributes = array();
+    public $metas = array();
     /**     // pada post
      *      $relations = array(
      *          'commments' => array(
@@ -35,11 +36,12 @@ abstract class Model
     {
         $this->dbsetup();
         $this->setTableName(get_class($this));
+        $this->initialFields();
         $this->setup();
         if ($attributes != null) {
             foreach ($attributes as $key => $value) {
                 if(array_key_exists($key, $this->attributes)) {
-                    $this->attributes[$key] = $value;
+                    $this->attributes[$key]['value'] = $value;
                 }
                 if($key == 'id') {
                     $this->id = $value;
@@ -55,14 +57,23 @@ abstract class Model
         $dbpass = $config['db']['dbpass'];
         $this->db = new PDO($dbstring, $dbuser, $dbpass);
     }
+    private function initialFields()
+    {
+        $statement = $this->query("select * from $this->tableName");
+        $count = $statement->columnCount();
+        for($i = 0; $i < $count; $i++) {
+            $field = $statement->getColumnMeta($i);
+            $attribute['type'] = $field['native_type'];
+            $attribute['value'] = null;
+            $this->attributes[$field['name']] = $attribute;
+        }
+    }
     abstract public function setup();
-    
-    
     
     public function __set($attribute, $value)
     {
         if (array_key_exists($attribute, $this->attributes)) {
-            $this->attributes[$attribute] = $value;
+            $this->attributes[$attribute]['value'] = $value;
         } else {
             $this->$attribute = $value;
         }
@@ -71,7 +82,7 @@ abstract class Model
     public function __get($attribute)
     {
         if (array_key_exists($attribute, $this->attributes)) {
-            return $this->attributes[$attribute];
+            return $this->attributes[$attribute]['value'];
         } else if (array_key_exists($attribute, $this->relations)) {
             return $this->getModel($attribute);
         } else {
@@ -104,9 +115,13 @@ abstract class Model
         $object = $this->findQuery("from $this->tableName where id = ? ", array($id));
         return $object[0];
     }
-    public function all()
+    public function all($order = null)
     {
-        return $this->findQuery("from $this->tableName");
+        $o = "";
+        if($order != null) {
+            $o = "order by $order";
+        }
+        return $this->findQuery("from $this->tableName $o");
     }
     public function last()
     {
@@ -123,22 +138,27 @@ abstract class Model
     
     public function save()
     {
-        if (empty($id)) {
-            if (!empty($this->errors)) {
-                throw new Exception(join("\n", $this->errors));
-            }
+        if ($this->id == null) {
             $names = array();
             $values = array();
+            $attributes = array();
             foreach ($this->attributes as $name => $value) {
+                $attributes[$name] = $value['value'];
+            }
+            foreach ($attributes as $name => $value) {
                 $names[] = $name;
                 $values[] = ':'.$name;
             }
             $names = join(', ', $names);
             $values = join(', ', $values);
             $query = "INSERT INTO $this->tableName ($names) VALUES ($values)";
-            $statement = $this->db->prepare($query);
-            $statement->execute($this->attributes);
-            $this->id = $this->db->lastInsertId();  
+            try{
+                $statement = $this->db->prepare($query);
+                $statement->execute($attributes);
+                $this->id = $this->db->lastInsertId();
+            } catch (PDOException $e) {
+                var_dump($e);
+            }
         } else {
             $this->update();
         }
@@ -149,14 +169,21 @@ abstract class Model
         $pairs = array();
         $args = array();
         foreach ($this->attributes as $name => $value) {
-            $pairs[] = "$name = ?";
-            $args[] = $value;
+            if($name != 'id'){
+                $pairs[] = "$name = ?";
+                $args[] = $value['value'];
+            }
         }
         $pairs = join(', ', $pairs);
-        $query = "UPDATE $this->table SET $pairs WHERE $this->id = ?";
+        $query = "UPDATE $this->tableName SET $pairs WHERE id = ?";
         $args[] = $this->id;
         $statement = $this->db->prepare($query);
         $statement->execute($args);
+    }
+    
+    public function delete($id)
+    {
+        $this->query("delete from $this->tableName where id = ?", array($id));
     }
     
     /**
@@ -188,6 +215,7 @@ abstract class Model
     {
         $statement = $this->db->prepare($query);
         $statement->execute($params);
+        return $statement;
     }
     
     public static function model($className)
@@ -207,5 +235,9 @@ abstract class Model
     public function setTableName($tableName)
     {
         $this->tableName = $tableName;
+    }
+    public function getAttributes()
+    {
+        return $this->attributes;
     }
 }

@@ -27,8 +27,8 @@
             </div>
             
             <div class="footer">
-                &copy; Ahmad Tanwir<br/>
-                with Ostric Taisku 0.1 
+                &copy;Ahmad Tanwir<br/>
+                with Ostric Taiskuu 0.1 
             </div>
         </div>
         

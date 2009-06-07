@@ -3,13 +3,6 @@ class Presensi extends Model
 {
     public function setup()
     {
-        $this->attributes = array(
-            'karyawan_id'       =>  null,
-            'periode_id'        =>  null,
-            'kehadiran'         =>  null,
-            'sakit'             =>  null,
-            'izin'              =>  null,
-        );
         $this->relations = array(
             'karyawan'  => array (
                 'model'         =>  'Karyawan',

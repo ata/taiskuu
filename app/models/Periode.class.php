@@ -3,10 +3,7 @@ class Periode extends Model
 {
     public function setup()
     {
-        $this->attributes = array(
-            'bulan'       =>  null,
-            'tahun'        =>  null,
-        );
+        
         $this->relations = array(
             'listPresensi'  => array (
                 'model'         =>  'Presensi',

@@ -5,6 +5,7 @@ require_once ('./core/view/helpers/Html.class.php');
 require_once ('./core/model/Model.class.php');
 require_once ('./core/component/Session.class.php');
 require_once ('./core/component/Form.class.php');
+require_once ('./core/component/FormModel.class.php');
 
 class Controller extends AbstractController
 {
@@ -36,6 +37,12 @@ class Controller extends AbstractController
     }
     
     protected function loadModels(){
+        
+        if(require_once("./app/models/ApplicationModel.class.php")){
+                
+        }
+        
+        
         if($this->models == null)
         {
             if(require_once("./app/models/$this->name.class.php")){

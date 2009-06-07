@@ -2,10 +2,13 @@
 class Html{
     public static function url($url,$params = null)
     {
-        return $_SERVER['SCRIPT_NAME'] .'?c='. $url;
+        $u  = $_SERVER['SCRIPT_NAME'] .'?c='. $url;
         if(is_array($params) && $params != null) {
-            
+            foreach($params as $k => $v) {
+                $u .= "&$k=$v";
+            }
         }
+        return $u;
     }
     public static function redirect($url)
     {

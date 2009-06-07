@@ -3,18 +3,6 @@ class Karyawan extends Model
 {
     public function setup()
     {
-        $this->attributes = array(
-            'nik'                =>  null,
-            'nama_lengkap'       =>  null,
-            'tempat_lahir'       =>  null,
-            'tanggal_lahir'     =>  null,
-            'golongan'           =>  null,
-            'gaji_pokok'         =>  null,
-            'tunjangan_jabatan'  =>  null,
-            'tunjangan_keluarga' =>  null,
-            'tunjangan_lain'     =>  null,
-            'transport_per_hari' =>  null,
-        );
         $this->relations = array(
             'listPresensi'  => array (
                 'model'         =>  'Presensi',
