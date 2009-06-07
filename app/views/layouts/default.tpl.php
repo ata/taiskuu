@@ -13,22 +13,26 @@
                 <h1>Pay Roll System</h1>
             </div>
             <ul class="top-menu">
-                <li><a href="#">Karyawan</a></li>
-                <li><a href="#">Gaji</a></li>
-                <li><a href="#">Jam Lembur</a></li>
-                <li><a href="#">Periode</a></li>
-                <li><a href="#">Presensi</a></li>
+                <li><a href="<?php echo Html::url('karyawan')?>">Karyawan</a></li>
+                <li><a href="<?php echo Html::url('penggajian')?>">Penggajian</a></li>
             </ul>
             <div class="body">
+                <div class="sidebar">
+                    <h3><?php echo $this->controller?> menu</h3>
+                    <ul>
+                       <?php foreach($this->menu as $m):?>
+                       <li><a href="<?php echo Html::url($m['url']) ?>"><?php echo $m['label'] ?></a></li>
+                       <?php endforeach?>
+                    </ul>
+                </div>
                 <div class="content">
                     <?php echo $this->getContent()?>
-                </div>
-                
+                </div>  
             </div>
             
             <div class="footer">
                 &copy;Ahmad Tanwir<br/>
-                with Ostric Taiskuu 0.1 
+                powered by <b>Ostric Taiskuu 0.1 </b>
             </div>
         </div>
         

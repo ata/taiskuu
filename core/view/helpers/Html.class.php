@@ -10,10 +10,6 @@ class Html{
         }
         return $u;
     }
-    public static function redirect($url)
-    {
-        header('Location:'. Core::url($url));
-    }
     public static function media($url)
     {
         $scriptname =  $_SERVER['SCRIPT_NAME'];

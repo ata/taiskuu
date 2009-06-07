@@ -39,14 +39,23 @@ abstract class Model
         $this->initialFields();
         $this->setup();
         if ($attributes != null) {
-            foreach ($attributes as $key => $value) {
-                if(array_key_exists($key, $this->attributes)) {
-                    $this->attributes[$key]['value'] = $value;
+            $this->fromArray($attributes);
+        }
+    }
+    public function fromArray($attributes) {
+        foreach ($attributes as $key => $value) {
+            if(array_key_exists($key, $this->attributes)) {
+                $this->attributes[$key]['value'] = $value;
+                //aneh ya?
+                if(is_array($value)) {
+                    $this->attributes[$key]['value'] = $value['value'];
                 }
-                if($key == 'id') {
-                    $this->id = $value;
-                }    
             }
+            if($key == 'id') {
+                if(!is_array($value)){
+                    $this->id = $value;
+                }
+            }    
         }
     }
     private function dbsetup()
@@ -64,7 +73,7 @@ abstract class Model
         for($i = 0; $i < $count; $i++) {
             $field = $statement->getColumnMeta($i);
             $attribute['type'] = $field['native_type'];
-            $attribute['value'] = null;
+            $attribute['value'] = '';
             $this->attributes[$field['name']] = $attribute;
         }
     }
@@ -115,24 +124,32 @@ abstract class Model
         $object = $this->findQuery("from $this->tableName where id = ? ", array($id));
         return $object[0];
     }
-    public function all($order = null)
+    public function all($order = 'id')
     {
-        $o = "";
-        if($order != null) {
-            $o = "order by $order";
-        }
-        return $this->findQuery("from $this->tableName $o");
+        return $this->findQuery("from $this->tableName order by $order");
     }
-    public function last()
+    public function last($order = 'id')
     {
-        
+        $objects = $this->findQuery("from $this->tableName order by $order desc limit 0,1");
+        return $objects[0];
     }
     public function count()
     {
         
     }
-    public function first()
+    public function first($order = 'id')
     {
+        $objects = $this->findQuery("from $this->tableName order by $order asc limit 0,1");
+        return $objects[0];
+    }
+    public function select($label, $value = 'id')
+    {
+        $statement = $this->query("select $value, $label from $this->tableName");
+        $options = array();
+        foreach($statement->fetchAll(PDO::FETCH_ASSOC) as $data){
+            $options[$data[$value]] = $data[$label];
+        }
+        return $options;
         
     }
     
@@ -143,7 +160,9 @@ abstract class Model
             $values = array();
             $attributes = array();
             foreach ($this->attributes as $name => $value) {
-                $attributes[$name] = $value['value'];
+                if($name != 'id') {
+                    $attributes[$name] = $value['value'];
+                }
             }
             foreach ($attributes as $name => $value) {
                 $names[] = $name;
@@ -152,6 +171,8 @@ abstract class Model
             $names = join(', ', $names);
             $values = join(', ', $values);
             $query = "INSERT INTO $this->tableName ($names) VALUES ($values)";
+            //echo $query;
+            //var_dump($attributes);
             try{
                 $statement = $this->db->prepare($query);
                 $statement->execute($attributes);
@@ -198,7 +219,7 @@ abstract class Model
             $query = 'select * '.$query;
         }
         $query = str_replace(get_class($this), $this->tableName, $query);
-        // echo $query;
+        //echo $query;
         $statement = $this->db->prepare($query);
         $statement->execute($params);
         $self = get_class($this);

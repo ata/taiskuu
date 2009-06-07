@@ -29,14 +29,15 @@ class Application
         self::setRequest($controller,$action);
     }
     private static function setRequest($pcontroller, $paction){
-        unset($_GET['c']);
+        $params = $_GET;
+        unset($params['c']);
         $className = ucfirst($pcontroller) .'Controller';
         if(file_exists("./app/controllers/ApplicationController.class.php")) {
             include_once("./app/controllers/ApplicationController.class.php");
         }
         include_once("./app/controllers/$className.class.php");
         $controller =  new $className();
-        $controller->setParams($_GET);
+        $controller->setParams($params);
         $controller->$paction();
         $controller->getView()->render($paction);
     }

@@ -31,16 +31,16 @@ class Controller extends AbstractController
         return $this->models[$attr];
     }
     
-    public function redirect($param)
+    public function redirect($url,$param = null)
     {
-        header('Location:'. Html::url($param));
+        header('Location:'. Html::url($url, $param));
     }
     
     protected function loadModels(){
         
-        if(require_once("./app/models/ApplicationModel.class.php")){
+       // if(require_once("./app/models/ApplicationModel.class.php")){
                 
-        }
+        //}
         
         
         if($this->models == null)

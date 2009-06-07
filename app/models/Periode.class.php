@@ -11,7 +11,7 @@ class Periode extends Model
                 'type'          =>  Model::HAS_MANY
             ),
             'listGaji'  => array (
-                'model'         =>  'Periode',
+                'model'         =>  'Gaji',
                 'foreign_key'   =>  'periode_id',
                 'type'          =>  Model::HAS_MANY
             ),
