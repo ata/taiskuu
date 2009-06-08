@@ -6,8 +6,8 @@ class PenggajianController extends ApplicationController
     {
         parent::__construct();
         $this->menu = array(
-            array('label'=>'Gaji periode ini','url'=>'penggajian'),
-            array('label'=>'Jam Lembur','url'=>'penggajian/jam_lembur'),
+            array('label'=>'Gaji','url'=>'penggajian'),
+            array('label'=>'Setting','url'=>'penggajian/setting'),
             array('label'=>'Periode', 'url'=>'penggajian/periode')
         );
     }
@@ -76,6 +76,46 @@ class PenggajianController extends ApplicationController
     {
         Gaji::m()->delete($this->params['id']);
         $this->redirect('penggajian/index',array('periode'=>$this->params['periode']));
+    }
+    public function setting()
+    {
+        $this->message = "";
+        if(isset($_POST['Setting'])) {
+            $setting = new Setting($_POST['Setting']);
+            $setting->save();
+            $this->message = "Setting telah di simpan";
+        }
+        $this->form = new FormModel(Setting::m()->first(),'penggajian/setting',FormModel::EDIT);
+    }
+    public function periode()
+    {
+        if(isset($_POST['Periode'])) {
+            
+        }
+        
+        $this->listPeriode = Periode::m()->all();
+    }
+    public function periode_add()
+    {
+        $this->form = new FormModel(new Periode(),'penggajian/periode_save');
+    }
+    public function periode_edit()
+    {
+        $this->form = new FormModel(Periode::m()->find($this->params['id']),
+                                    'penggajian/periode_save',
+                                    FormModel::EDIT
+                                    );
+    }
+    public function periode_save()
+    {
+        $periode = new Periode($_POST['Periode']);
+        $periode->save();
+        $this->redirect('penggajian/periode');
+    }
+    public function periode_delete()
+    {
+        Periode::m()->delete($this->params['id']);
+        $this->redirect('penggajian/periode');
     }
     
 }
