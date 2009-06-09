@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title><?php echo $this->getTitle() ?></title>
+        <title>Payrol System</title>
         <link rel="stylesheet" type="text/css" href="<?php echo Html::media('css/main.css')?>"/>
         <link rel="stylesheet" type="text/css" href="<?php echo Html::media('css/datepicker.css')?>"/>
         <script type="text/javascript" src="<?php echo Html::media('js/prototype.js')?>"></script>

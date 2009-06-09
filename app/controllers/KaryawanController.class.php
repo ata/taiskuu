@@ -21,8 +21,7 @@ class KaryawanController extends ApplicationController
     }
     public function add()
     {
-        $karyawan = new Karyawan();
-        $form = new FormModel($karyawan,'karyawan/save');
+        $form = new FormModel(new Karyawan(),'karyawan/save');
         $this->form = $form;
     }
     public function edit()

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2009 at 08:31 PM
+-- Generation Time: Jun 09, 2009 at 08:00 AM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.6-1+lenny2
 
@@ -157,12 +157,12 @@ INSERT INTO `Presensi` (`id`, `karyawan_id`, `periode_id`, `kehadiran`, `sakit`,
 
 CREATE TABLE IF NOT EXISTS `Setting` (
   `id` bigint(20) NOT NULL auto_increment,
-  `upah_lembur_hari_biasa` float(10,0) NOT NULL,
-  `upah_lembur_hari_minggu` float(10,0) NOT NULL,
-  `upah_lembur_hari_libur` float(10,0) NOT NULL,
+  `upah_lembur_hari_biasa` float NOT NULL,
+  `upah_lembur_hari_minggu` float NOT NULL,
+  `upah_lembur_hari_libur` float NOT NULL,
   `uang_makan_harian` bigint(20) NOT NULL,
-  `potongan_per_ketidakhadiran_sakit` float(10,0) NOT NULL,
-  `potongan_per_ketidakhadiran_izin` float(10,0) NOT NULL,
+  `potongan_per_ketidakhadiran_sakit` float NOT NULL,
+  `potongan_per_ketidakhadiran_izin` float NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -171,4 +171,4 @@ CREATE TABLE IF NOT EXISTS `Setting` (
 --
 
 INSERT INTO `Setting` (`id`, `upah_lembur_hari_biasa`, `upah_lembur_hari_minggu`, `upah_lembur_hari_libur`, `uang_makan_harian`, `potongan_per_ketidakhadiran_sakit`, `potongan_per_ketidakhadiran_izin`) VALUES
-(1, 1, 1, 6, 15000, 2, 2);
+(1, 1.5, 2.5, 4.5, 15000, 2, 2);
