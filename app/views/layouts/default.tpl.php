@@ -32,7 +32,7 @@
             
             <div class="footer">
                 &copy;Ahmad Tanwir<br/>
-                powered by <b>Ostric Taiskuu 0.1 </b>
+                powered by <b>Ostric Taiskuu 0.1.1</b>
             </div>
         </div>
         

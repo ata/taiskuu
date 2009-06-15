@@ -89,9 +89,6 @@ class PenggajianController extends ApplicationController
     }
     public function periode()
     {
-        if(isset($_POST['Periode'])) {
-            
-        }
         
         $this->listPeriode = Periode::m()->all();
     }
@@ -109,6 +106,7 @@ class PenggajianController extends ApplicationController
     public function periode_save()
     {
         $periode = new Periode($_POST['Periode']);
+        var_dump($periode);
         $periode->save();
         $this->redirect('penggajian/periode');
     }

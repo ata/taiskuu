@@ -42,4 +42,5 @@ class KaryawanController extends ApplicationController
         Karyawan::m()->delete($this->params['id']);
         $this->redirect('karyawan/index');
     }
+    
 }
