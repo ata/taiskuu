@@ -76,11 +76,12 @@ div.content{
     float:right;
     margin-left:20px;
     margin-bottom:40px;
-    width:700px;
+    width:100%;
 }
 div.content h2{
     font-weight:normal;
     margin:20px auto 10px 0;
+    padding-left:1em;
     font-style:italic;
 }
 

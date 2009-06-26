@@ -48,7 +48,11 @@ abstract class Model
                 $this->attributes[$key]['value'] = $value;
                 //aneh ya?
                 if(is_array($value)) {
-                    $this->attributes[$key]['value'] = $value['value'];
+                    if($this->attributes[$key]['type'] == "DATE2") {
+                        $this->attributes[$key]['value'] = $value['y'] ."-". $value['m'] ."-". $value['d'];;
+                    } else {
+                        $this->attributes[$key]['value'] = $value['value'];
+                    }
                 }
             }
             if($key == 'id') {
@@ -124,7 +128,7 @@ abstract class Model
         $object = $this->findQuery("from $this->tableName where id = ? ", array($id));
         return $object[0];
     }
-    public function all($order = 'id')
+    public function all($order = 'id asc')
     {
         return $this->findQuery("from $this->tableName order by $order");
     }
@@ -133,9 +137,11 @@ abstract class Model
         $objects = $this->findQuery("from $this->tableName order by $order desc limit 0,1");
         return $objects[0];
     }
-    public function count()
+    public function size()
     {
-        
+        $st = $this->query("select count(*) as size from $this->tableName");
+        $result = $st->fetch(PDO::FETCH_ASSOC);
+        return $result['size'];
     }
     public function first($order = 'id')
     {
@@ -234,6 +240,7 @@ abstract class Model
     
     public function query($query, $params = array())
     {
+       
         $statement = $this->db->prepare($query);
         $statement->execute($params);
         return $statement;

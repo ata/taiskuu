@@ -3,7 +3,7 @@ class Periode extends Model
 {
     public function setup()
     {
-        
+        $this->attributes['aktif']['type'] = "BOOL";
         $this->relations = array(
             'listPresensi'  => array (
                 'model'         =>  'Presensi',

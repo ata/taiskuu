@@ -6,6 +6,7 @@ require_once ('./core/model/Model.class.php');
 require_once ('./core/component/Session.class.php');
 require_once ('./core/component/Form.class.php');
 require_once ('./core/component/FormModel.class.php');
+require_once ('./core/component/Paginate.class.php');
 
 class Controller extends AbstractController
 {

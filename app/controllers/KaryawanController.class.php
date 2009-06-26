@@ -12,8 +12,7 @@ class KaryawanController extends ApplicationController
     }
     public function index()
     {
-        $this->listKaryawan = Karyawan::m()->all();
-        
+        $this->paginate = new Paginate(new Karyawan(),Html::url('karyawan'));
     }
     public function detail()
     {

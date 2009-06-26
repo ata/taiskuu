@@ -15,8 +15,10 @@
             <ul class="top-menu">
                 <li><a href="<?php echo Html::url('karyawan')?>">Karyawan</a></li>
                 <li><a href="<?php echo Html::url('penggajian')?>">Penggajian</a></li>
+                <li><a href="<?php echo Html::url('penggajian/setting')?>">Setting</a></li>
             </ul>
             <div class="body">
+                <!--
                 <div class="sidebar">
                     <h3><?php echo $this->controller?> menu</h3>
                     <ul>
@@ -24,7 +26,9 @@
                        <li><a href="<?php echo Html::url($m['url']) ?>"><?php echo $m['label'] ?></a></li>
                        <?php endforeach?>
                     </ul>
+                
                 </div>
+                -->
                 <div class="content">
                     <?php echo $this->getContent()?>
                 </div>  

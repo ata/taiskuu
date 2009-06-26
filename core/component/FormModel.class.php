@@ -24,6 +24,12 @@ class FormModel extends Form
                     case 'DATE':
                         $this->date($key,array('value' => $value['value']));
                         break;
+                    case 'DATE2':
+                        $this->dateChoice($key,array('value' => $value['value']));
+                        break;
+                    case 'BOOL':
+                        $this->checkbox($key,array('value' => $value['value']));
+                        break;
                     case 'BLOB':
                         $this->textarea($key,array('value' => $value['value']));
                         break;

@@ -3,6 +3,8 @@ class Karyawan extends Model
 {
     public function setup()
     {
+        $this->attributes['tanggal_lahir']['type'] = "DATE2";
+        $this->attributes['aktif']['type'] = "BOOL";
         $this->relations = array(
             'listPresensi'  => array (
                 'model'         =>  'Presensi',
